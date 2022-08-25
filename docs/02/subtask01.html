@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2. Register Particle Device &#8212; IoT4Design</title>
+    <title>3. Register Particle Device &#8212; IoT4Design</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -37,7 +37,6 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
     <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
@@ -50,16 +49,10 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="1. SHT31 Air Temperature &amp; Humidity Sensor with Particle Argon" href="../01/task01.html" />
+    <link rel="next" title="4. Micropython on HUZZAH32" href="subtask02.html" />
+    <link rel="prev" title="2. Sensirion SCD30 CO2 Sensors with HUZZAH32" href="../01/task02.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -106,6 +99,11 @@
    1. SHT31 Air Temperature &amp; Humidity Sensor with Particle Argon
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01/task02.html">
+   2. Sensirion SCD30 CO2 Sensors with HUZZAH32
+  </a>
+ </li>
 </ul>
 <p class="caption">
  <span class="caption-text">
@@ -115,7 +113,17 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   2. Register Particle Device
+   3. Register Particle Device
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="subtask02.html">
+   4. Micropython on HUZZAH32
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="subtask03.html">
+   5. Securing Passwords and codes - Micropython
   </a>
  </li>
 </ul>
@@ -209,7 +217,7 @@
               <div>
                 
   <div class="section" id="register-particle-device">
-<h1><span class="section-number">2. </span>Register Particle Device<a class="headerlink" href="#register-particle-device" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">3. </span>Register Particle Device<a class="headerlink" href="#register-particle-device" title="Permalink to this headline">¶</a></h1>
 <ol>
 <li><p>Register and setup your Particle device with our chaos lab particle account (You can do it with your own Particle account too). For login information to the Chaos account please approach members of the lab. Follow the instruction <a class="reference external" href="https://setup.particle.io/">here</a>.
 </Br><Br/>
@@ -241,19 +249,19 @@ a. Sometimes, you might have some problem with registering. Doing a factory rese
 <li><p>Once your device is registered, go to the <a class="reference external" href="https://console.particle.io/devices">particle web console</a>. Check if the device is on the list.</p>
 <div class="figure align-default" id="particle-console">
 <a class="reference internal image-reference" href="../../_images/particle_console.png"><img alt="../../_images/particle_console.png" src="../../_images/particle_console.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-number">Fig. 2.1 </span><span class="caption-text">We have named our Argon HYDRO_ARG001.</span><a class="headerlink" href="#particle-console" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.1 </span><span class="caption-text">We have named our Argon HYDRO_ARG001.</span><a class="headerlink" href="#particle-console" title="Permalink to this image">¶</a></p>
 </div>
 </li>
 <li><p>Go to the <a class="reference external" href="https://build.particle.io/build/new">Web IDE</a>. Go to the Devices tab, star the device that you have registered.</p>
 <div class="figure align-default" id="web-ide">
 <a class="reference internal image-reference" href="../../_images/web_ide.png"><img alt="../../_images/web_ide.png" src="../../_images/web_ide.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Star Argon HYDRO_ARG001, so we can flash to the device.</span><a class="headerlink" href="#web-ide" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.2 </span><span class="caption-text">Star Argon HYDRO_ARG001, so we can flash to the device.</span><a class="headerlink" href="#web-ide" title="Permalink to this image">¶</a></p>
 </div>
 </li>
 <li><p>Click on the code option on the left side bar. In the search bar for ‘My apps’ search for ‘STAPI’. You will see a series of STAPIXX_XXX scripts.</p>
 <div class="figure align-default" id="web-ide2">
 <a class="reference internal image-reference" href="../../_images/web_ide2.png"><img alt="../../_images/web_ide2.png" src="../../_images/web_ide2.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-number">Fig. 2.3 </span><span class="caption-text">STAPIxx series of scripts</span><a class="headerlink" href="#web-ide2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.3 </span><span class="caption-text">STAPIxx series of scripts</span><a class="headerlink" href="#web-ide2" title="Permalink to this image">¶</a></p>
 </div>
 </li>
 <li><p>For a general description of the integration of Particle with our database (FROST-Server) refer to <a class="reference external" href="https://chenkianwee.github.io/masa3db/docs/040/042particle.html">here</a>.</p></li>
@@ -290,14 +298,23 @@ a. Sometimes, you might have some problem with registering. Doing a factory rese
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="../01/task01.html" title="previous page">
+        <a class="left-prev" href="../01/task02.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">1. </span>SHT31 Air Temperature &amp; Humidity Sensor with Particle Argon</p>
+                <p class="prevnext-title"><span class="section-number">2. </span>Sensirion SCD30 CO2 Sensors with HUZZAH32</p>
             </div>
         </a>
     </div>
+     <div id="next">
+        <a class="right-next" href="subtask02.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">4. </span>Micropython on HUZZAH32</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
 </div>
         
