@@ -2,7 +2,16 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: intro
-chapters:
-- file: markdown
-- file: notebooks
+root: docs/intro
+parts:
+- caption: Tasks
+  numbered: true
+  chapters:
+  - file: docs/01/task01
+  - file: docs/01/task02
+- caption: Sub-Tasks
+  numbered: true
+  chapters:
+  - file: docs/02/subtask01
+  - file: docs/02/subtask02
+  - file: docs/02/subtask03
