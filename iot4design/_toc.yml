@@ -4,14 +4,35 @@
 format: jb-book
 root: docs/intro
 parts:
-- caption: Tasks
+- caption: Tutorial
   numbered: true
   chapters:
-  - file: docs/01/task01
-  - file: docs/01/task02
-- caption: Sub-Tasks
+  - file: docs/02_tutorial/01stapi
+    sections:
+    - file: docs/02_tutorial/02stapi
+    - file: docs/02_tutorial/03stapi
+    - file: docs/02_tutorial/04stapi
+    - file: docs/02_tutorial/05stapi
+- caption: Reference-Working with Particle.io
   numbered: true
   chapters:
-  - file: docs/02/subtask01
-  - file: docs/02/subtask02
-  - file: docs/02/subtask03
+  - file: docs/04_particle/01_particleio_register
+  - file: docs/04_particle/02_sht31
+  - file: docs/04_particle/03_t6713
+  - file: docs/04_particle/04_scd30
+  - file: docs/04_particle/05_sonic_etape
+  - file: docs/04_particle/06_ec_ph
+  - file: docs/04_particle/07_ge2102
+  - file: docs/04_particle/08_fl408_flow
+  - file: docs/04_particle/09_mlx90614
+  - file: docs/04_particle/10_ts2591
+  - file: docs/04_particle/11_revc
+  - file: docs/04_particle/12_revp
+  - file: docs/04_particle/13_fluxteq
+  - file: docs/04_particle/14_fs3000_airvel
+- caption: Reference-Working with ESP32
+  numbered: true
+  chapters:
+  - file: docs/05_esp32/01_scd30
+  - file: docs/05_esp32/02_mpython
+  - file: docs/05_esp32/03_secure_mpython
