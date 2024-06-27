@@ -1,0 +1,934 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>1.3. Posting to the FROST-Server (Sensorthings API database) using Particle.io Devices &#8212; IoT4Design</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/02_tutorial/04stapi';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1.4. Under the Hood" href="05stapi.html" />
+    <link rel="prev" title="1.2. Chaos Database Tutorial 2 - REST-based Sensorthings API" href="03stapi.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">IoT4Design</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    IoT for Design
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="01stapi.html">1. Chaos Lab Database Tutorial</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="02stapi.html">1.1. Chaos Database Tutorial 1 - Sensorthings API data model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03stapi.html">1.2. Chaos Database Tutorial 2 - REST-based Sensorthings API</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.3. Posting to the FROST-Server (Sensorthings API database) using Particle.io Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05stapi.html">1.4. Under the Hood</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference-Working with Particle.io</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/01_particleio_register.html">1. Register Particle Device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/02_sht31.html">2. SHT31 Air Temperature &amp; Humidity Sensor with Particle Argon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/03_t6713.html">3. Amphenol Telaire T6713 CO2 Sensors with Particle Argon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/04_scd30.html">4. Sensirion SCD30 CO2 Sensors with Particle Argon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/05_sonic_etape.html">5. Ultrasonic Distance Sensor - 3V or 5V - HC-SR04 compatible - RCWL-1601 &amp; Etape Sensor with Particle Photons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/06_ec_ph.html">6. Grove - EC &amp; PH Sensor Kit with Particle Photons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/07_ge2102.html">7. Amphenol GE2102 Thermistor with Particle Photons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/08_fl408_flow.html">8. Digiten Water Flow Sensor FL408 with Particle Photons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/09_mlx90614.html">9. GY906 (MLX90614) with Particle Argon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/10_ts2591.html">10. TS2591 Lux Sensor with Particle Argon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/11_revc.html">11. Modern Device Wind Sensor Rev C with Particle Argon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/12_revp.html">12. Modern Device Wind Sensor Rev P with Particle Argon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/13_fluxteq.html">13. Fluxteq Heatflux Sensor + 24bit ADC ADS1220 with Particle Argon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_particle/14_fs3000_airvel.html">14. Sparkfun Air Velocity FS3000</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference-Working with ESP32</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_esp32/01_scd30.html">1. Sensirion SCD30 CO2 Sensors with HUZZAH32</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_esp32/02_mpython.html">2. Micropython on HUZZAH32</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_esp32/03_secure_mpython.html">3. Securing Passwords and codes - Micropython</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdocs/02_tutorial/04stapi.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/02_tutorial/04stapi.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Posting to the FROST-Server (Sensorthings API database) using Particle.io Devices</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="posting-to-the-frost-server-sensorthings-api-database-using-particle-io-devices">
+<h1><span class="section-number">1.3. </span>Posting to the FROST-Server (Sensorthings API database) using <a class="reference external" href="http://Particle.io">Particle.io</a> Devices<a class="headerlink" href="#posting-to-the-frost-server-sensorthings-api-database-using-particle-io-devices" title="Link to this heading">#</a></h1>
+<p>In this tutorial we will go through the steps to write the codes for Particle-based sensor setup. We will be building a SHT31 sensor. The script can be reused as long as the setup is the same with the setup described here, a particle device with one connected SHT31 sensor. For this tutorial we will be needing these materials:</p>
+<ul class="simple">
+<li><p>A Particle Argon (Can be bought <a class="reference external" href="https://store.particle.io/products/argon">here</a>)</p></li>
+<li><p>USB Data Cable (Should come with your Particle Argon)</p></li>
+<li><p>A SHT31 Sensor (Can be bought <a class="reference external" href="https://www.adafruit.com/product/2857">here</a>)</p></li>
+<li><p>Jumper Wires x 4 (Can be bought <a class="reference external" href="https://www.adafruit.com/product/1956">here</a>)</p></li>
+<li><p>Breadboard (Can be bought <a class="reference external" href="https://www.amazon.com/dp/B07DL13RZH/ref=redir_mobile_desktop?_encoding=UTF8&amp;amp;aaxitk=Ha8lI6PHb2sFCtkeyNViLQ&amp;amp;hsa_cr_id=4991273630901&amp;amp;pd_rd_plhdr=t&amp;amp;pd_rd_r=e429b428-9c18-43cc-bdb2-24937613797e&amp;amp;pd_rd_w=SmgRr&amp;amp;pd_rd_wg=zw5Ku&amp;amp;ref_=sbx_be_s_sparkle_mcd_asin_0_img">here</a>)</p></li>
+<li><p>Soldering Kit (Can be bought <a class="reference external" href="https://www.amazon.com/Soldering-Iron-Kit-Temperature-Desoldering/dp/B073VDX4B7/ref=sr_1_1_sspa?crid=3TI8MUBYG9QXZ&amp;amp;dchild=1&amp;amp;keywords=soldering+kit&amp;amp;qid=1615313665&amp;amp;s=industrial&amp;amp;sprefix=soldering%2Cindustrial%2C166&amp;amp;sr=1-1-spons&amp;amp;psc=1&amp;amp;smid=A1XLBTH0MIQMMO&amp;amp;spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFHUTdTSUtLUkdESUQmZW5jcnlwdGVkSWQ9QTAzODE3MjcyS0REVDQ5U1JLSVk4JmVuY3J5cHRlZEFkSWQ9QTAxMjYzMDYxOTk2N0ZMSjdVUVI2JndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==">here</a>)</p></li>
+<li><p>Laptop and Smart phone</p></li>
+</ul>
+<ol class="arabic">
+<li><p>Refer to <span class="xref std std-doc">../030/0318subtask18</span> to register the Argon Device with our Particle account.</p></li>
+<li><p>Wire up the sensor and the Argon as shown in the figure below. For step by step details on how to wire the sensors please refer to <strong>Step 3</strong> of <span class="xref std std-doc">0201task01</span>.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0201task01/sht31_6_labelled.jpg"><img alt="_static/0201task01/sht31_6_labelled.jpg" src="_static/0201task01/sht31_6_labelled.jpg" style="width: 100%;" /></a>
+</figure>
+</li>
+<li><p>Click on this link <a href="https://build.particle.io" target="_blank">build.particle.io</a>. Once you click on the link, you will be directed to the web ide and asked to create a new app. Name it as you wish. I have name it ‘NEWAPP’. I will refer to it as ‘NEWAPP’ throughout this tutorial.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_1.png"><img alt="_static/0210task10_3/0210task10_3_1.png" src="_static/0210task10_3/0210task10_3_1.png" style="width: 100%;" /></a>
+</figure>
+</li>
+<li><p>Search for ‘STAPI’ at the search bar. You should be able to see the script ‘STAPI_Template’.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_2.png"><img alt="_static/0210task10_3/0210task10_3_2.png" src="_static/0210task10_3/0210task10_3_2.png" style="width: 100%;" /></a>
+</figure>
+<ul class="simple">
+<li><p>Select all (you can use the shortcut key Ctrl-A) and copy (Ctrl-C) the script to your ‘NEWAPP’. We are going to use the template as the starting point for writing a new script that post data to our FROST-Server.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_3.png"><img alt="_static/0210task10_3/0210task10_3_3.png" src="_static/0210task10_3/0210task10_3_3.png" style="width: 100%;" /></a>
+</figure>
+</li>
+<li><p>Using the template, you will have make changes to the first 39 lines and lines 52-93 of the code. The first 39 lines of codes are as follows.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>====================================================================================================================
+!!! MANDATORY PARAMETERS
+====================================================================================================================
+String thingDesc = &quot;template&quot;; //DESCRIBE THE DEPLOYMENT
+int sample_rate = 10 * 1000; // how often you want device to publish where the number in front of a thousand is the seconds you want
+====================================================================================================================
+OPTIONAL PARAMETERS (if the device is already registered, these options are ignored)
+====================================================================================================================
+//Description of the location
+String foiName = &quot;na&quot;; //THE LOCATION NAME
+String foiDesc = &quot;na&quot;;//Define the geometry of the location. Refer to https://tools.ietf.org/html/rfc7946 for geometry types.
+String locType = &quot;Point&quot;;
+String enType = &quot;application/vnd.geo+json&quot;;
+//Define the location of the thing. If location is not impt, use [0,0,0] the null island position.
+float coordx = 0.0; //lon/x
+float coordy = 0.0; //lat/y
+float coordz = 0.0; //elv/z
+====================================================================================================================
+SENSOR SPECIFIED SETTINGS &amp; LIBRARIES - PLEASE MAKE CHANGES ACCORDING TO YOUR SENSORS
+====================================================================================================================
+String pins = &quot;i2c-co2sensor&quot;; //describe the pins connection on the particle device
+const int nDs = 3; // how many sensors are attached to this particle device that is streaming single number result
+//Specify the Ids of the sensors that is attached to each datastream
+int dsSnrIds[nDs] = {5,5,5}; // Visit https://andlchaos300l.princeton.edu:8080/FROST-Server/v1.0/Sensors to look at the sensor catalogue, if you can&#39;t find the sensors you need run STAPI04-RegisterSensors
+//Specify the Ids of the observation properties that is attached to each datastream
+int dsObsPropIds[nDs] = {5,1,3};// Visit https://andlchaos300l.princeton.edu:8080/FROST-Server/v1.0/ObservedProperties to look at the observed properties catalogue, if you can&#39;t find the observed properties you need run STAPI05-RegisterObservedProperties
+//descriptions of the datastream
+String dsDescs[nDs] = {&quot;co2&quot;, &quot;air temp&quot;, &quot;rel humidity&quot;};
+String dsObsTypes[nDs] = {&quot;measurement&quot;, &quot;measurement&quot;, &quot;measurement&quot;};
+//unit of measurement of the data
+String dsUomNames[nDs] = {&quot;parts per million&quot;, &quot;degree celsius&quot;, &quot;%&quot;}; //name of unit of measurement e.g. temperature, daylight
+String dsUomSyms[nDs] = {&quot;ppm&quot;, &quot;degC&quot;, &quot;%&quot;}; // the symbols of the unit of measurement e.g. C, lux
+String dsUomDefs[nDs] = {&quot;number of particles per million particles&quot;,&quot;temperature&quot;, &quot;percentage of humidity in the air&quot;}; //visit &quot;http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html&quot; to get the definition
+====================================================================================================================
+uint16_t carbonDioxide;
+float temperature;
+float rHumidity;
+//Specify the app that is flashed on the particle device
+String appName = &quot;stapi01_template&quot;;
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>First we need to include the library necessary for SHT31 sensor. Click on the ‘Libraries’ icon. In the search bar, search for sht31. On the top of the list you will get ‘adafruit-sht31’.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_4.png"><img alt="_static/0210task10_3/0210task10_3_4.png" src="_static/0210task10_3/0210task10_3_4.png" style="width: 100%;" /></a>
+</figure>
+<ul class="simple">
+<li><p>Click on the ‘adafruit-sht31’ and include it in your code.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_5.png"><img alt="_static/0210task10_3/0210task10_3_5.png" src="_static/0210task10_3/0210task10_3_5.png" style="width: 100%;" /></a>
+</figure>
+<ul class="simple">
+<li><p>Include it in your ‘NEWAPP’ code.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_6.png"><img alt="_static/0210task10_3/0210task10_3_6.png" src="_static/0210task10_3/0210task10_3_6.png" style="width: 100%;" /></a>
+</figure>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_7.png"><img alt="_static/0210task10_3/0210task10_3_7.png" src="_static/0210task10_3/0210task10_3_7.png" style="width: 100%;" /></a>
+</figure>
+<ul class="simple">
+<li><p>The library will be automatically included in your code.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_8.png"><img alt="_static/0210task10_3/0210task10_3_8.png" src="_static/0210task10_3/0210task10_3_8.png" style="width: 100%;" /></a>
+</figure>
+<ul class="simple">
+<li><p>We will configure this code for our SHT31 sensor. First we change the mandatory parameters.Change the ‘thingDesc’ to describe your deployment. Change the ‘sample_rate’ to decide the intervals of acquisition.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>====================================================================================================================
+!!! MANDATORY PARAMETERS
+====================================================================================================================
+String thingDesc = &quot;deployment of sht31 for tutorial&quot;; //DESCRIBE THE DEPLOYMENT
+int sample_rate = 10 * 1000; // how often you want device to publish where the number in front of a thousand is the seconds you want
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>We can make changes to the optional parameters. You can get the coordinate of the location by using google map. You can follow <strong>step 3&amp;4</strong> of <a href="https://chenkianwee.github.io/gis4design/docs/030/0319task20.html?highlight=coordinate" target="_blank">this guide</a>.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">====================================================================================================================</span>
+<span class="n">OPTIONAL</span> <span class="n">PARAMETERS</span> <span class="p">(</span><span class="k">if</span> <span class="n">the</span> <span class="n">device</span> <span class="ow">is</span> <span class="n">already</span> <span class="n">registered</span><span class="p">,</span> <span class="n">these</span> <span class="n">options</span> <span class="n">are</span> <span class="n">ignored</span><span class="p">)</span>
+<span class="o">====================================================================================================================</span>
+<span class="o">//</span><span class="n">Description</span> <span class="n">of</span> <span class="n">the</span> <span class="n">location</span>
+<span class="n">String</span> <span class="n">foiName</span> <span class="o">=</span> <span class="s2">&quot;andlinger center chaos lab&quot;</span><span class="p">;</span> <span class="o">//</span><span class="n">THE</span> <span class="n">LOCATION</span> <span class="n">NAME</span>
+<span class="n">String</span> <span class="n">foiDesc</span> <span class="o">=</span> <span class="s2">&quot;this is the room where the tutorial is taking place&quot;</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">locType</span> <span class="o">=</span> <span class="s2">&quot;Point&quot;</span><span class="p">;</span> <span class="o">//</span><span class="n">Define</span> <span class="n">the</span> <span class="n">geometry</span> <span class="n">of</span> <span class="n">the</span> <span class="n">location</span><span class="o">.</span> <span class="n">Refer</span> <span class="n">to</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">tools</span><span class="o">.</span><span class="n">ietf</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">rfc7946</span> <span class="k">for</span> <span class="n">geometry</span> <span class="n">types</span><span class="o">.</span>
+<span class="n">String</span> <span class="n">enType</span> <span class="o">=</span> <span class="s2">&quot;application/vnd.geo+json&quot;</span><span class="p">;</span>
+<span class="o">//</span><span class="n">Define</span> <span class="n">the</span> <span class="n">location</span> <span class="n">of</span> <span class="n">the</span> <span class="n">thing</span><span class="o">.</span> <span class="n">If</span> <span class="n">location</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">impt</span><span class="p">,</span> <span class="n">use</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="n">the</span> <span class="n">null</span> <span class="n">island</span> <span class="n">position</span><span class="o">.</span>
+<span class="nb">float</span> <span class="n">coordx</span> <span class="o">=</span> <span class="o">-</span><span class="mf">74.65100728477384</span><span class="p">;</span> <span class="o">//</span><span class="n">lon</span><span class="o">/</span><span class="n">x</span>
+<span class="nb">float</span> <span class="n">coordy</span> <span class="o">=</span> <span class="mf">40.34965958241038</span><span class="p">;</span> <span class="o">//</span><span class="n">lat</span><span class="o">/</span><span class="n">y</span>
+<span class="nb">float</span> <span class="n">coordz</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span> <span class="o">//</span><span class="n">elv</span><span class="o">/</span><span class="n">z</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Next we will fill in the sensor specified parameters.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">====================================================================================================================</span>
+<span class="n">SENSOR</span> <span class="n">SPECIFIED</span> <span class="n">SETTINGS</span> <span class="o">&amp;</span> <span class="n">LIBRARIES</span> <span class="o">-</span> <span class="n">PLEASE</span> <span class="n">MAKE</span> <span class="n">CHANGES</span> <span class="n">ACCORDING</span> <span class="n">TO</span> <span class="n">YOUR</span> <span class="n">SENSORS</span>
+<span class="o">====================================================================================================================</span>
+<span class="n">String</span> <span class="n">pins</span> <span class="o">=</span> <span class="s2">&quot;i2c-sht31&quot;</span><span class="p">;</span> <span class="o">//</span><span class="n">describe</span> <span class="n">the</span> <span class="n">pins</span> <span class="n">connection</span> <span class="n">on</span> <span class="n">the</span> <span class="n">particle</span> <span class="n">device</span>
+<span class="n">const</span> <span class="nb">int</span> <span class="n">nDs</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="o">//</span> <span class="n">how</span> <span class="n">many</span> <span class="n">sensors</span> <span class="n">are</span> <span class="n">attached</span> <span class="n">to</span> <span class="n">this</span> <span class="n">particle</span> <span class="n">device</span> <span class="n">that</span> <span class="ow">is</span> <span class="n">streaming</span> <span class="n">single</span> <span class="n">number</span> <span class="n">result</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>For specifying the sensors and ObservedProperties we will go to the FROST-Server and find the sht31 sensor Id.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">Specify</span> <span class="n">the</span> <span class="n">Ids</span> <span class="n">of</span> <span class="n">the</span> <span class="n">sensors</span> <span class="n">that</span> <span class="ow">is</span> <span class="n">attached</span> <span class="n">to</span> <span class="n">each</span> <span class="n">datastream</span>
+<span class="nb">int</span> <span class="n">dsSnrIds</span><span class="p">[</span><span class="n">nDs</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span> <span class="o">//</span> <span class="n">Visit</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">andlchaos300l</span><span class="o">.</span><span class="n">princeton</span><span class="o">.</span><span class="n">edu</span><span class="p">:</span><span class="mi">8080</span><span class="o">/</span><span class="n">FROST</span><span class="o">-</span><span class="n">Server</span><span class="o">/</span><span class="n">v1</span><span class="mf">.0</span><span class="o">/</span><span class="n">Sensors</span> <span class="n">to</span> <span class="n">look</span> <span class="n">at</span> <span class="n">the</span> <span class="n">sensor</span> <span class="n">catalogue</span><span class="p">,</span> <span class="k">if</span> <span class="n">you</span> <span class="n">can</span><span class="s1">&#39;t find the sensors you need run STAPI04-RegisterSensors</span>
+<span class="o">//</span><span class="n">Specify</span> <span class="n">the</span> <span class="n">Ids</span> <span class="n">of</span> <span class="n">the</span> <span class="n">observation</span> <span class="n">properties</span> <span class="n">that</span> <span class="ow">is</span> <span class="n">attached</span> <span class="n">to</span> <span class="n">each</span> <span class="n">datastream</span>
+<span class="nb">int</span> <span class="n">dsObsPropIds</span><span class="p">[</span><span class="n">nDs</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">};</span><span class="o">//</span> <span class="n">Visit</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">andlchaos300l</span><span class="o">.</span><span class="n">princeton</span><span class="o">.</span><span class="n">edu</span><span class="p">:</span><span class="mi">8080</span><span class="o">/</span><span class="n">FROST</span><span class="o">-</span><span class="n">Server</span><span class="o">/</span><span class="n">v1</span><span class="mf">.0</span><span class="o">/</span><span class="n">ObservedProperties</span> <span class="n">to</span> <span class="n">look</span> <span class="n">at</span> <span class="n">the</span> <span class="n">observed</span> <span class="n">properties</span> <span class="n">catalogue</span><span class="p">,</span> <span class="k">if</span> <span class="n">you</span> <span class="n">can</span><span class="s1">&#39;t find the observed properties you need run STAPI05-RegisterObservedProperties</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Go to <a href="https://andlchaos300l.princeton.edu:8080/FROST-Server/v1.0/Sensors" target="_blank">the sensor url</a>. Search for ‘sht31’ with the Ctrl-F command. We can see that the sht31 sensor has an ID of 3.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_9.png"><img alt="_static/0210task10_3/0210task10_3_9.png" src="_static/0210task10_3/0210task10_3_9.png" style="width: 100%;" /></a>
+</figure>
+<ul class="simple">
+<li><p>Similarly for the observedproperties we will go to <a href="https://andlchaos300l.princeton.edu:8080/FROST-Server/v1.0/ObservedProperties" target="_blank">the observedproperties url</a>. We have 3 datastreams that are measuring the temperature, relative humidity and absolute humidity respectively. We will use the Ctrl-F function to search for these properties. Their ID are 1, 3, 6 respectively.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_10.png"><img alt="_static/0210task10_3/0210task10_3_10.png" src="_static/0210task10_3/0210task10_3_10.png" style="width: 100%;" /></a>
+</figure>
+<ul class="simple">
+<li><p>Next we need to fill in more information on the datastreams. The descriptions need to be the same order as the way you specify your observedproperties: air temp, relative humidity and absolute humidity.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">descriptions</span> <span class="n">of</span> <span class="n">the</span> <span class="n">datastream</span>
+<span class="n">String</span> <span class="n">dsDescs</span><span class="p">[</span><span class="n">nDs</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;air temp&quot;</span><span class="p">,</span> <span class="s2">&quot;rel humidity&quot;</span><span class="p">,</span> <span class="s2">&quot;abs humidity&quot;</span><span class="p">};</span>
+<span class="n">String</span> <span class="n">dsObsTypes</span><span class="p">[</span><span class="n">nDs</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;measurement&quot;</span><span class="p">,</span> <span class="s2">&quot;measurement&quot;</span><span class="p">,</span> <span class="s2">&quot;measurement&quot;</span><span class="p">};</span>
+<span class="o">//</span><span class="n">unit</span> <span class="n">of</span> <span class="n">measurement</span> <span class="n">of</span> <span class="n">the</span> <span class="n">data</span>
+<span class="n">String</span> <span class="n">dsUomNames</span><span class="p">[</span><span class="n">nDs</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">degree</span> <span class="n">celsius</span><span class="s2">&quot;, &quot;</span><span class="n">percentage</span><span class="s2">&quot;, &quot;</span><span class="n">grams</span> <span class="n">per</span> <span class="n">kg</span><span class="s2">&quot;}; //name of unit of measurement e.g. temperature, daylight</span>
+<span class="n">String</span> <span class="n">dsUomSyms</span><span class="p">[</span><span class="n">nDs</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;degC&quot;</span><span class="p">,</span> <span class="s2">&quot;%&quot;</span><span class="p">,</span> <span class="s2">&quot;g/kg&quot;</span><span class="p">};</span> <span class="o">//</span> <span class="n">the</span> <span class="n">symbols</span> <span class="n">of</span> <span class="n">the</span> <span class="n">unit</span> <span class="n">of</span> <span class="n">measurement</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">C</span><span class="p">,</span> <span class="n">lux</span>
+<span class="n">String</span> <span class="n">dsUomDefs</span><span class="p">[</span><span class="n">nDs</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;temperature&quot;</span><span class="p">,</span> <span class="s2">&quot;percentage of humidity in the air&quot;</span><span class="p">,</span> <span class="s2">&quot;grams of moisture in the air&quot;</span><span class="p">};</span>
+<span class="o">====================================================================================================================</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Next we will include any extra codes that is required for running the SHT31 sensor. We have to first initialise the SHT31 library.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Adafruit_SHT31</span> <span class="n">sht31</span> <span class="o">=</span> <span class="n">Adafruit_SHT31</span><span class="p">();</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Determine the data we are acquiring from the sensor. t (temperature), h (rel humidity) and g (absolute humidity).</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">double</span> <span class="n">t</span><span class="p">;</span>
+<span class="n">double</span> <span class="n">h</span><span class="p">;</span>
+<span class="n">double</span> <span class="n">g</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>As the SHT31 only acquire the air temperature and the relative humidity. We wrote function to calculate the absolute humidty from these two data.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>//constants for calculating absolute humidity
+double EPSILON = 0.62198;  // ratio of molecular weights of water and dry air
+double P_ATM = 102595.8;   // current barometric pressure, Pa - UPDATE!!!! at time of experiment
+//fit to Magnus equation Psat = C1*exp(A1*t/(B1+t)) where t is in C, outputs Pa
+double A = 17.625; //from Alduchov and Eskridge, 1996
+double B = 243.04; // degrees C
+double C = 610.94; //Pa
+//helper function to compute absolute humidity
+double absolute_H(double tempC, double rh) {
+    double Psat = C*exp(A*tempC/(B+tempC));
+    double Pvap = rh/100*Psat;
+    double ah = EPSILON*Pvap/(P_ATM-Pvap)*1000; //convert to g/kg
+    return ah; //absolute humidity in g/kg
+}
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Lastly, we specify the script name that will be flashed onto the particle device.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">Specify</span> <span class="n">the</span> <span class="n">app</span> <span class="n">that</span> <span class="ow">is</span> <span class="n">flashed</span> <span class="n">on</span> <span class="n">the</span> <span class="n">particle</span> <span class="n">device</span>
+<span class="n">String</span> <span class="n">appName</span> <span class="o">=</span> <span class="s2">&quot;NEWAPP&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The complete code for first 39 lines are as follows.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>============================================================================================
+!!! MANDATORY PARAMETERS
+============================================================================================
+String thingDesc = &quot;deployment of sht31 for tutorial&quot;; //DESCRIBE THE DEPLOYMENT
+int sample_rate = 10 * 1000; // how often you want device to publish where the number in front of a thousand is the seconds you want
+============================================================================================
+OPTIONAL PARAMETERS (if the device is already registered, these options are ignored)
+============================================================================================
+//Description of the location
+String foiName = &quot;andlinger center chaos lab&quot;; //THE LOCATION NAME
+String foiDesc = &quot;this is the room where the tutorial is taking place&quot;;
+String locType = &quot;Point&quot;; //Define the geometry of the location. Refer to https://tools.ietf.org/html/rfc7946 for geometry types.
+String enType = &quot;application/vnd.geo+json&quot;;
+//Define the location of the thing. If location is not impt, use [0,0,0] the null island position.
+float coordx = -74.65100728477384; //lon/x
+float coordy = 40.34965958241038; //lat/y
+float coordz = 0.0; //elv/z
+============================================================================================
+SENSOR SPECIFIED SETTINGS &amp; LIBRARIES - PLEASE MAKE CHANGES ACCORDING TO YOUR SENSORS
+============================================================================================
+String pins = &quot;i2c-sht31&quot;; //describe the pins connection on the particle device
+const int nDs = 3; // how many sensors are attached to this particle device that is streaming single number result
+//Specify the Ids of the sensors that is attached to each datastream
+int dsSnrIds[nDs] = {3,3,3}; // Visit https://andlchaos300l.princeton.edu:8080/FROST-Server/v1.0/Sensors to look at the sensor catalogue, if you can&#39;t find the sensors you need run STAPI04-RegisterSensors
+//Specify the Ids of the observation properties that is attached to each datastream
+int dsObsPropIds[nDs] = {1,3,6};// Visit https://andlchaos300l.princeton.edu:8080/FROST-Server/v1.0/ObservedProperties to look at the observed properties catalogue, if you can&#39;t find the observed properties you need run STAPI05-RegisterObservedProperties
+//descriptions of the datastream
+String dsDescs[nDs] = {&quot;air temp&quot;, &quot;rel humidity&quot;, &quot;abs humidity&quot;};
+String dsObsTypes[nDs] = {&quot;measurement&quot;, &quot;measurement&quot;, &quot;measurement&quot;};
+//unit of measurement of the data
+String dsUomNames[nDs] = {degree celsius&quot;, &quot;percentage&quot;, &quot;grams per kg&quot;}; //name of unit of measurement e.g. temperature, daylight
+String dsUomSyms[nDs] = {&quot;degC&quot;, &quot;%&quot;, &quot;g/kg&quot;}; // the symbols of the unit of measurement e.g. C, lux
+String dsUomDefs[nDs] = {&quot;temperature&quot;, &quot;percentage of humidity in the air&quot;, &quot;grams of moisture in the air&quot;};
+===========================================================================================
+Adafruit_SHT31 sht31 = Adafruit_SHT31();
+double t;
+double h;
+double g;
+//constants for calculating absolute humidity
+double EPSILON = 0.62198;  // ratio of molecular weights of water and dry air
+double P_ATM = 102595.8;   // current barometric pressure, Pa - UPDATE!!!! at time of experiment
+//fit to Magnus equation Psat = C1*exp(A1*t/(B1+t)) where t is in C, outputs Pa
+double A = 17.625; //from Alduchov and Eskridge, 1996
+double B = 243.04; // degrees C
+double C = 610.94; //Pa
+//helper function to compute absolute humidity
+double absolute_H(double tempC, double rh) {
+    double Psat = C*exp(A*tempC/(B+tempC));
+    double Pvap = rh/100*Psat;
+    double ah = EPSILON*Pvap/(P_ATM-Pvap)*1000; //convert to g/kg
+    return ah; //absolute humidity in g/kg
+}
+//Specify the app that is flashed on the particle device
+String appName = &quot;NEWAPP&quot;;
+</pre></div>
+</div>
+</li>
+<li><p>With the Thing and Datastreams registered, we will move on to the setup and loop function of the particle device.</p></li>
+<li><p>In the setup function. We have to add an extra line to start the SHT31 library.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">start</span> <span class="n">the</span> <span class="n">sht31</span> <span class="n">library</span>
+<span class="n">sht31</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="mh">0x44</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The code below is the completed setup function.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span>
+    <span class="o">//</span><span class="n">start</span> <span class="n">the</span> <span class="n">sht31</span> <span class="n">library</span>
+    <span class="n">sht31</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="mh">0x44</span><span class="p">);</span>
+    <span class="o">//</span><span class="n">get</span> <span class="n">the</span> <span class="n">device</span> <span class="n">name</span>
+    <span class="n">Particle</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="s2">&quot;particle/device/name&quot;</span><span class="p">,</span> <span class="n">getDeviceName</span><span class="p">);</span>
+    <span class="n">Particle</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s2">&quot;particle/device/name&quot;</span><span class="p">);</span>
+    <span class="o">//</span><span class="n">Set</span> <span class="n">the</span> <span class="n">Datastream</span> <span class="n">Ids</span> <span class="k">as</span> <span class="n">variables</span>
+    <span class="n">Particle</span><span class="o">.</span><span class="n">variable</span><span class="p">(</span><span class="s2">&quot;appName&quot;</span><span class="p">,</span> <span class="n">appName</span><span class="p">);</span>
+    <span class="n">Particle</span><span class="o">.</span><span class="n">variable</span><span class="p">(</span><span class="s2">&quot;datastreamId&quot;</span><span class="p">,</span><span class="n">dsIdString</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>In the loop function. You only need to fill in the scope within ‘if (thingCnt == -2){}’. We will first change the datastream variables. We will change the datastream variables from dsId_co2, dsId_airTemp and dsId_relHumid to <strong>dsId_airTemp, dsId_relHumid and dsId_absHumid</strong>. We will also change the dsIdString with the right variable names as shown below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">dsId_airTemp</span> <span class="o">=</span> <span class="n">dsIds</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="nb">int</span> <span class="n">dsId_relHumid</span> <span class="o">=</span> <span class="n">dsIds</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="nb">int</span> <span class="n">dsId_absHumid</span> <span class="o">=</span> <span class="n">dsIds</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="n">dsIdString</span> <span class="o">=</span> <span class="n">String</span><span class="p">::</span><span class="nb">format</span><span class="p">(</span><span class="s2">&quot;{ </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> : </span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> : </span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> : </span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s2"> }&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;dsId_airTemp&quot;</span><span class="p">,</span>  <span class="n">dsId_airTemp</span><span class="p">,</span> <span class="s2">&quot;dsId_relHumid&quot;</span><span class="p">,</span> <span class="n">dsId_relHumid</span><span class="p">,</span> <span class="s2">&quot;dsId_absHumid&quot;</span><span class="p">,</span> <span class="n">dsId_absHumid</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Next we will change the codes below the ‘//get the reading from the sensor’ comment. We will get the air temperature, relative humidity and absolute humidity with the following codes.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">get</span> <span class="n">the</span> <span class="n">reading</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">sensor</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">double</span><span class="p">(</span><span class="n">sht31</span><span class="o">.</span><span class="n">readTemperature</span><span class="p">());</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">double</span><span class="p">(</span><span class="n">sht31</span><span class="o">.</span><span class="n">readHumidity</span><span class="p">());</span>
+<span class="nb">float</span> <span class="n">tF</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="o">*</span> <span class="mi">9</span><span class="p">)</span> <span class="o">/</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">32</span><span class="p">;</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">absolute_H</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Once we have the data from the sensors we have to publish them and trigger the ‘postObservation’ webhook by publishing with the event name ‘postObservation’. The data is posted to the FROST-Server with the following code. In each post you have specify the time, the acquired data and the id of the datastream to post to. After each publish I have added in a ‘delay(sample_rate/3)’. This is to give each publish some time to be publish and trigger the respective webhook. It is good practice to give some delay between publish statements.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">post</span> <span class="ow">and</span> <span class="n">publish</span> <span class="n">the</span> <span class="n">readings</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">first</span> <span class="n">sensor</span>
+<span class="n">String</span> <span class="n">postObsTemp</span> <span class="o">=</span> <span class="n">String</span><span class="p">::</span><span class="nb">format</span><span class="p">(</span>
+<span class="s2">&quot;{ </span><span class="se">\&quot;</span><span class="s2">time</span><span class="se">\&quot;</span><span class="s2"> : </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">result</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">dsId</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s2">}&quot;</span><span class="p">,</span>
+<span class="n">timeNow</span><span class="o">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">t</span><span class="p">,</span> <span class="n">dsId_airTemp</span><span class="p">);</span>
+<span class="n">Particle</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s2">&quot;postObservation&quot;</span><span class="p">,</span> <span class="n">postObsTemp</span><span class="p">,</span> <span class="n">PRIVATE</span><span class="p">);</span>
+<span class="n">delay</span><span class="p">(</span><span class="n">sample_rate</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="o">//</span><span class="n">post</span> <span class="ow">and</span> <span class="n">publish</span> <span class="n">the</span> <span class="n">readings</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">first</span> <span class="n">sensor</span>
+<span class="n">String</span> <span class="n">postObsHumid</span> <span class="o">=</span> <span class="n">String</span><span class="p">::</span><span class="nb">format</span><span class="p">(</span>
+<span class="s2">&quot;{ </span><span class="se">\&quot;</span><span class="s2">time</span><span class="se">\&quot;</span><span class="s2"> : </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">result</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">dsId</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s2">}&quot;</span><span class="p">,</span>
+<span class="n">timeNow</span><span class="o">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">h</span><span class="p">,</span> <span class="n">dsId_relHumid</span><span class="p">);</span>
+<span class="n">Particle</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s2">&quot;postObservation&quot;</span><span class="p">,</span> <span class="n">postObsHumid</span><span class="p">,</span> <span class="n">PRIVATE</span><span class="p">);</span>
+<span class="n">delay</span><span class="p">(</span><span class="n">sample_rate</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="o">//</span><span class="n">post</span> <span class="ow">and</span> <span class="n">publish</span> <span class="n">the</span> <span class="n">readings</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">first</span> <span class="n">sensor</span>
+<span class="n">String</span> <span class="n">postObsAbsHumid</span> <span class="o">=</span> <span class="n">String</span><span class="p">::</span><span class="nb">format</span><span class="p">(</span>
+<span class="s2">&quot;{ </span><span class="se">\&quot;</span><span class="s2">time</span><span class="se">\&quot;</span><span class="s2"> : </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">result</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">dsId</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s2">}&quot;</span><span class="p">,</span>
+<span class="n">timeNow</span><span class="o">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">g</span><span class="p">,</span> <span class="n">dsId_absHumid</span><span class="p">);</span>
+<span class="n">Particle</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s2">&quot;postObservation&quot;</span><span class="p">,</span> <span class="n">postObsAbsHumid</span><span class="p">,</span> <span class="n">PRIVATE</span><span class="p">);</span>
+
+<span class="n">delay</span><span class="p">(</span><span class="n">sample_rate</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>the complete code of the setup and loop function codes are as follows.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span>
+      <span class="o">//</span><span class="n">start</span> <span class="n">the</span> <span class="n">sht31</span> <span class="n">library</span>
+      <span class="n">sht31</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="mh">0x44</span><span class="p">);</span>
+      <span class="o">//</span><span class="n">get</span> <span class="n">the</span> <span class="n">device</span> <span class="n">name</span>
+      <span class="n">Particle</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="s2">&quot;particle/device/name&quot;</span><span class="p">,</span> <span class="n">getDeviceName</span><span class="p">);</span>
+      <span class="n">Particle</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s2">&quot;particle/device/name&quot;</span><span class="p">);</span>
+      <span class="o">//</span><span class="n">Set</span> <span class="n">the</span> <span class="n">Datastream</span> <span class="n">Ids</span> <span class="k">as</span> <span class="n">variables</span>
+      <span class="n">Particle</span><span class="o">.</span><span class="n">variable</span><span class="p">(</span><span class="s2">&quot;appName&quot;</span><span class="p">,</span> <span class="n">appName</span><span class="p">);</span>
+      <span class="n">Particle</span><span class="o">.</span><span class="n">variable</span><span class="p">(</span><span class="s2">&quot;datastreamId&quot;</span><span class="p">,</span><span class="n">dsIdString</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">void</span> <span class="n">loop</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">thingCnt</span> <span class="o">==</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">Particle</span><span class="o">.</span><span class="n">unsubscribe</span><span class="p">();</span>
+          <span class="o">//</span><span class="n">specify</span> <span class="n">which</span> <span class="n">datastream</span> <span class="n">to</span> <span class="n">post</span> <span class="n">to</span>
+          <span class="nb">int</span> <span class="n">dsId_airTemp</span> <span class="o">=</span> <span class="n">dsIds</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+          <span class="nb">int</span> <span class="n">dsId_relHumid</span> <span class="o">=</span> <span class="n">dsIds</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+          <span class="nb">int</span> <span class="n">dsId_absHumid</span> <span class="o">=</span> <span class="n">dsIds</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+          <span class="n">dsIdString</span> <span class="o">=</span> <span class="n">String</span><span class="p">::</span><span class="nb">format</span><span class="p">(</span><span class="s2">&quot;{ </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> : </span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> : </span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> : </span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s2"> }&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;dsId_airTemp&quot;</span><span class="p">,</span>  <span class="n">dsId_airTemp</span><span class="p">,</span> <span class="s2">&quot;dsId_relHumid&quot;</span><span class="p">,</span> <span class="n">dsId_relHumid</span><span class="p">,</span> <span class="s2">&quot;dsId_absHumid&quot;</span><span class="p">,</span> <span class="n">dsId_absHumid</span><span class="p">);</span>
+          <span class="o">//</span><span class="n">get</span> <span class="n">the</span> <span class="n">current</span> <span class="n">time</span>
+          <span class="n">String</span> <span class="n">timeNow</span> <span class="o">=</span> <span class="n">Time</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Time</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span> <span class="n">TIME_FORMAT_ISO8601_FULL</span><span class="p">);</span>
+
+          <span class="n">t</span> <span class="o">=</span> <span class="n">double</span><span class="p">(</span><span class="n">sht31</span><span class="o">.</span><span class="n">readTemperature</span><span class="p">());</span>
+          <span class="n">h</span> <span class="o">=</span> <span class="n">double</span><span class="p">(</span><span class="n">sht31</span><span class="o">.</span><span class="n">readHumidity</span><span class="p">());</span>
+          <span class="n">g</span> <span class="o">=</span> <span class="n">absolute_H</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">);</span>
+
+          <span class="o">//</span><span class="n">post</span> <span class="ow">and</span> <span class="n">publish</span> <span class="n">the</span> <span class="n">readings</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">first</span> <span class="n">sensor</span>
+          <span class="n">String</span> <span class="n">postObsTemp</span> <span class="o">=</span> <span class="n">String</span><span class="p">::</span><span class="nb">format</span><span class="p">(</span>
+          <span class="s2">&quot;{ </span><span class="se">\&quot;</span><span class="s2">time</span><span class="se">\&quot;</span><span class="s2"> : </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">result</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">dsId</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s2">}&quot;</span><span class="p">,</span>
+          <span class="n">timeNow</span><span class="o">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">t</span><span class="p">,</span> <span class="n">dsId_airTemp</span><span class="p">);</span>
+          <span class="n">Particle</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s2">&quot;postObservation&quot;</span><span class="p">,</span> <span class="n">postObsTemp</span><span class="p">,</span> <span class="n">PRIVATE</span><span class="p">);</span>
+          <span class="n">delay</span><span class="p">(</span><span class="n">sample_rate</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>
+
+          <span class="o">//</span><span class="n">post</span> <span class="ow">and</span> <span class="n">publish</span> <span class="n">the</span> <span class="n">readings</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">first</span> <span class="n">sensor</span>
+          <span class="n">String</span> <span class="n">postObsHumid</span> <span class="o">=</span> <span class="n">String</span><span class="p">::</span><span class="nb">format</span><span class="p">(</span>
+          <span class="s2">&quot;{ </span><span class="se">\&quot;</span><span class="s2">time</span><span class="se">\&quot;</span><span class="s2"> : </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">result</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">dsId</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s2">}&quot;</span><span class="p">,</span>
+          <span class="n">timeNow</span><span class="o">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">h</span><span class="p">,</span> <span class="n">dsId_relHumid</span><span class="p">);</span>
+          <span class="n">Particle</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s2">&quot;postObservation&quot;</span><span class="p">,</span> <span class="n">postObsHumid</span><span class="p">,</span> <span class="n">PRIVATE</span><span class="p">);</span>
+          <span class="n">delay</span><span class="p">(</span><span class="n">sample_rate</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>
+
+          <span class="o">//</span><span class="n">post</span> <span class="ow">and</span> <span class="n">publish</span> <span class="n">the</span> <span class="n">readings</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">first</span> <span class="n">sensor</span>
+          <span class="n">String</span> <span class="n">postObsAbsHumid</span> <span class="o">=</span> <span class="n">String</span><span class="p">::</span><span class="nb">format</span><span class="p">(</span>
+          <span class="s2">&quot;{ </span><span class="se">\&quot;</span><span class="s2">time</span><span class="se">\&quot;</span><span class="s2"> : </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">result</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">dsId</span><span class="se">\&quot;</span><span class="s2">: </span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s2">}&quot;</span><span class="p">,</span>
+          <span class="n">timeNow</span><span class="o">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">g</span><span class="p">,</span> <span class="n">dsId_absHumid</span><span class="p">);</span>
+          <span class="n">Particle</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s2">&quot;postObservation&quot;</span><span class="p">,</span> <span class="n">postObsAbsHumid</span><span class="p">,</span> <span class="n">PRIVATE</span><span class="p">);</span>
+
+          <span class="n">delay</span><span class="p">(</span><span class="n">sample_rate</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>
+      <span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Once you have made the necessary changes to the template. Save the script (Ctrl+S or click on the save icon on the left sidebar). Click on the device tab and choose the device to flash to.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_11.png"><img alt="_static/0210task10_3/0210task10_3_11.png" src="_static/0210task10_3/0210task10_3_11.png" style="width: 100%;" /></a>
+</figure>
+</li>
+<li><p>You can first verify the code by clicking on the tick icon. If there are no mistakes you can flash it onto the device by clicking on the lightning icon.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_12.png"><img alt="_static/0210task10_3/0210task10_3_12.png" src="_static/0210task10_3/0210task10_3_12.png" style="width: 100%;" /></a>
+</figure>
+</li>
+<li><p>Go to the console page (<a href="https://console.particle.io/devices" target="_blank">https://console.particle.io/devices</a>). Click on the device that you flash the script on. If everything is successful, the sensor will be posting data according to the sample time.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_13.png"><img alt="_static/0210task10_3/0210task10_3_13.png" src="_static/0210task10_3/0210task10_3_13.png" style="width: 100%;" /></a>
+</figure>
+</li>
+<li><p>On the console page you can click on get variable to see what app is flashed to the device and also the datastream id it is posting to.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_static/0210task10_3/0210task10_3_14.png"><img alt="_static/0210task10_3/0210task10_3_14.png" src="_static/0210task10_3/0210task10_3_14.png" style="width: 100%;" /></a>
+</figure>
+</li>
+<li><p>Refer to  <span class="xref std std-doc">../030/0319subtask19</span> to visualize the data on Grafana.</p></li>
+<li><p>This script can be reused for the same setup <strong>Particle device + 1 SHT31 sensor</strong>. If you want to register a new entry with the same Particle device, you just need to change the deployment parameter. The script always looks for Thing with the same name, device uid and deployment. Only if the database has a thing with the same name, device uid and deployment, it will return the id of the Thing, if not found the script will register a new Thing entry.</p></li>
+</ol>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/02_tutorial"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03stapi.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1.2. </span>Chaos Database Tutorial 2 - REST-based Sensorthings API</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="05stapi.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1.4. </span>Under the Hood</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kian Wee Chen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
