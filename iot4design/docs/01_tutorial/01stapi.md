@@ -1,10 +1,10 @@
-# Chaos Database Tutorial 1 - Sensorthings API data model
+# Database Tutorial 1 - Sensorthings API data model
 1. The UML diagram of the sensorthings data model is shown below. The API consist of 9 objects, in the figure below there are only 8 objects as it is not depicting the multidatastream object. The multidatastream object is very similar to the datastream object.
     ```{figure} /_static/0210task10_1/0210task101_1.png
     :width: 100%
     OGC Sensorthings API standard working group, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons
     ```
-2. To put this data model in context, we will instantiate the model with a typical setup in our lab as shown in the figure below.
+2. To put this data model in context, we will instantiate the model with a typical setup as shown in the figure below.
     ```{figure} /_static/0210task10_1/0210task101_3.png
     :width: 100%
     OGC Sensorthings API standard working group, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons

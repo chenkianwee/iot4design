@@ -7,32 +7,30 @@ parts:
 - caption: Tutorial
   numbered: true
   chapters:
-  - file: docs/02_tutorial/01stapi
-    sections:
-    - file: docs/02_tutorial/02stapi
-    - file: docs/02_tutorial/03stapi
-    - file: docs/02_tutorial/04stapi
-    - file: docs/02_tutorial/05stapi
-- caption: Reference-Working with Particle.io
+  - file: docs/01_tutorial/01stapi
+  - file: docs/01_tutorial/02stapi
+  - file: docs/01_tutorial/03stapi
+  - file: docs/01_tutorial/04stapi
+- caption: How to wire sensors with Particle.io
   numbered: true
   chapters:
-  - file: docs/04_particle/01_particleio_register
-  - file: docs/04_particle/02_sht31
-  - file: docs/04_particle/03_t6713
-  - file: docs/04_particle/04_scd30
-  - file: docs/04_particle/05_sonic_etape
-  - file: docs/04_particle/06_ec_ph
-  - file: docs/04_particle/07_ge2102
-  - file: docs/04_particle/08_fl408_flow
-  - file: docs/04_particle/09_mlx90614
-  - file: docs/04_particle/10_ts2591
-  - file: docs/04_particle/11_revc
-  - file: docs/04_particle/12_revp
-  - file: docs/04_particle/13_fluxteq
-  - file: docs/04_particle/14_fs3000_airvel
-- caption: Reference-Working with ESP32
+  - file: docs/02_particle/01_particleio_register
+  - file: docs/02_particle/02_sht31
+  - file: docs/02_particle/03_t6713
+  - file: docs/02_particle/04_scd30
+  - file: docs/02_particle/05_sonic_etape
+  - file: docs/02_particle/06_ec_ph
+  - file: docs/02_particle/07_ge2102
+  - file: docs/02_particle/08_fl408_flow
+  - file: docs/02_particle/09_mlx90614
+  - file: docs/02_particle/10_ts2591
+  - file: docs/02_particle/11_revc
+  - file: docs/02_particle/12_revp
+  - file: docs/02_particle/13_fluxteq
+  - file: docs/02_particle/14_fs3000_airvel
+- caption: How to wire sensors with ESP32
   numbered: true
   chapters:
-  - file: docs/05_esp32/01_scd30
-  - file: docs/05_esp32/02_mpython
-  - file: docs/05_esp32/03_secure_mpython
+  - file: docs/03_esp32/01_scd30
+  - file: docs/03_esp32/02_mpython
+  - file: docs/03_esp32/03_secure_mpython
